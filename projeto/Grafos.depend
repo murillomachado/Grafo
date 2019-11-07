@@ -1,0 +1,49 @@
+# depslib dependency file v1.0
+1568314979 source:d:\asc-files\progex\c++\grafos\main.cpp
+	<iostream>
+	"TGrafo.h"
+
+1567711801 d:\asc-files\progex\c++\grafos\grafo.h
+	<string>
+	"TLista.h"
+
+1556025724 d:\asc-files\progex\c++\grafos\tlista.h
+	<iostream>
+	<string>
+	"TNo.h"
+
+1567702578 d:\asc-files\progex\c++\grafos\tno.h
+
+1568315079 d:\asc-files\progex\c++\grafos\tgrafo.h
+	<string>
+	"TLista.h"
+	"Vertice.h"
+
+1568314095 d:\asc-files\progex\c++\grafos\vertice.h
+	"Aresta.h"
+
+1568314193 d:\asc-files\progex\c++\grafos\aresta.h
+	<cmath>
+
+1573150545 source:c:\users\murillo\desktop\trabalho ed\projeto\main.cpp
+	<iostream>
+	"TGrafo.h"
+
+1573150711 c:\users\murillo\desktop\trabalho ed\projeto\tgrafo.h
+	<string>
+	"TLista.h"
+	"Vertice.h"
+
+1556025724 c:\users\murillo\desktop\trabalho ed\projeto\tlista.h
+	<iostream>
+	<string>
+	"TNo.h"
+
+1567702578 c:\users\murillo\desktop\trabalho ed\projeto\tno.h
+
+1573151150 c:\users\murillo\desktop\trabalho ed\projeto\vertice.h
+	"Aresta.h"
+
+1573149586 c:\users\murillo\desktop\trabalho ed\projeto\aresta.h
+	<cmath>
+
