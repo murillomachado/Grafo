@@ -16,6 +16,7 @@ template <typename T> class TLista{
       TLista(const string &_tipo); ///construtor parametrizado
       TLista(const TLista<T> &L); ///construtor de cópia
       void setprim(TNo<T> *p);
+      int getTamanho();
       void setult(TNo<T> *p);
       void settipo(const string &str);
       TNo<T>* getprim();
@@ -70,6 +71,10 @@ template <typename T> TLista<T>::TLista(const TLista<T> &L){
 
 template <typename T> void TLista<T>::setprim(TNo<T> *p){
    prim = p;
+}
+
+template <typename T>int TLista<T>::getTamanho(){
+   return n;
 }
 
 template <typename T> void TLista<T>::setult(TNo<T> *p){

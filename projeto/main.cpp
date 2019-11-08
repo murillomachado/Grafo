@@ -9,20 +9,10 @@ int main(){
    G = new TGrafo();
    G->settipo(true); //Grafo orientado
    cout << "Adicionando vertice A: " << G->AddVertice(188859.709932, 8253809.082146) << endl;
-   cout << "Adicionando vertice B: " << G->AddVertice(188905.046973, 8253520.080854) << endl;
+   cout << "Adicionando vertice B: " << G->AddVertice(188859.709932, 8253809.082146) << endl;
    cout << "Adicionando vertice C: " << G->AddVertice(188905.046973, 8253520.080854) << endl;
    cout << "Adicionando vertice D: " << G->AddVertice(189111.073925, 8253818.425694) << endl;
    cout << "Adicionando arestas A<->B, A<->D, A->C, B<->C, D->B, A<->E" << endl;
-
-    //buscar Vertice como está sendo buscado metodo  addAresta da classe Grafo
-
-   if(a.isEqual(b)){
-    cout << 'iguais' << endl;
-   }else{
-    cout << 'diferentes' << endl;
-   }
-
-
 
    cout << G->AddAresta(0, 1, "Aresta A<->B", 15.5, true) << endl;
    cout << G->AddAresta(0, 3, "Aresta A<->D", 17, true) << endl;
@@ -31,6 +21,25 @@ int main(){
    cout << G->AddAresta(3, 1, "Aresta D->B", 33.1, false) << endl;
    cout << G->AddAresta(0, 4, "Aresta A<->E", 33.1, true) << endl;
    G->Print();
+   cout << "================================================" << endl;
+
+    //buscar Vertice como está sendo buscado metodo  addAresta da classe Grafo
+    Vertice a = G->getVertice(0);
+    Vertice b = G->getVertice(1);
+
+    cout << "ID DO A " <<a.getid() << endl;
+    cout << "ID DO B "<<b.getid() << endl;
+
+
+   if(a.isEqual(b)){
+    cout << "iguais" << endl;
+   }else{
+    cout << "diferentes" << endl;
+   }
+
+    cout << "================================================" << endl;
+
+
 
    cout << "Alterando o grafo..." << endl;
    cout << "Removendo o vertice C" << endl;

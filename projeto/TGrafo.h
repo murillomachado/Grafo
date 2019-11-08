@@ -24,6 +24,7 @@ public:
    int getordem();
    int getdimensao();
    TLista<Vertice>* getLVertices();
+   Vertice getVertice(int _id);
    int AddVertice(double _x, double _y);
    void RemVertice(int _id);
    bool AddAresta(int _origem, int _destino, string _name, double _peso, bool _bidir);
@@ -81,6 +82,21 @@ int TGrafo::AddVertice(double _x, double _y){
    LVertices->ins_fim(V);
    ++ordem;
    return(autoid - 1);
+}
+
+Vertice TGrafo::getVertice(int _id){
+   TNo<Vertice> *p = LVertices->getprim();
+   int n = LVertices->getTamanho();
+   int i = 0;
+
+    while( i < n ){
+        if(p->getinfo().getid() == _id ){
+            return p->getinfo();
+        }else {
+                p->getprox();
+                i++;
+        }
+    }
 }
 
 void TGrafo::RemVertice(int _id){
