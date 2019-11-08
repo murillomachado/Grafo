@@ -4,6 +4,7 @@
 #include <string>
 #include "TLista.h"
 #include "Vertice.h"
+#include "TNo.h"
 
 using namespace std;
 

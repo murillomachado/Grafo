@@ -25,14 +25,15 @@
 1568314193 d:\asc-files\progex\c++\grafos\aresta.h
 	<cmath>
 
-1573236050 source:c:\users\murillo\desktop\trabalho ed\projeto\main.cpp
+1573237962 source:c:\users\murillo\desktop\trabalho ed\projeto\main.cpp
 	<iostream>
 	"TGrafo.h"
 
-1573236781 c:\users\murillo\desktop\trabalho ed\projeto\tgrafo.h
+1573237572 c:\users\murillo\desktop\trabalho ed\projeto\tgrafo.h
 	<string>
 	"TLista.h"
 	"Vertice.h"
+	"TNo.h"
 
 1573235241 c:\users\murillo\desktop\trabalho ed\projeto\tlista.h
 	<iostream>
