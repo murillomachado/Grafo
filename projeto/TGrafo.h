@@ -75,7 +75,6 @@ TLista<Vertice>* TGrafo::getLVertices(){
 
 int TGrafo::AddVertice(double _x, double _y){
    Vertice V;
-
    V.setid(autoid);
    ++autoid;
    V.setX(_x);
@@ -94,7 +93,7 @@ Vertice TGrafo::getVertice(int _id){
         if(p->getinfo().getid() == _id ){
             return p->getinfo();
         }else {
-                p->getprox();
+                p = p->getprox();
                 i++;
         }
     }

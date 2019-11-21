@@ -25,6 +25,8 @@ public:
    void Add_Aresta(int _destino, string _name, double _peso);
    bool Rem_Aresta (int _id);
    bool isEqual(Vertice b);
+   Vertice& operator=(const Vertice &Vertice);
+
 };
 
 //--------------------------------------------------
@@ -87,10 +89,29 @@ bool Vertice::Rem_Aresta (int _id){
 }
 
 bool Vertice::isEqual(Vertice b){
-    if(this->x == b.x){
-        if(this->y == b.y){return true;}
-    }
-    return false;
+    if((abs(b.x - this->x)< 0.1) && (abs(b.y - this-> y))< 0.1){
+        return true;
+    }else return false;
+
+
+//    if(this->x == b.x){
+//        if(this->y == b.y){return true;}
+//    }
+//    return false;
+}
+
+ Vertice& Vertice::operator=(const Vertice &Vertice){
+
+
+   if (this == &Vertice) return *this;
+   else{
+      this->id = Vertice.id;
+      this->x = Vertice.x;
+      this->y = Vertice.y;
+      this->LArestas = new TLista<Aresta>();
+      this->LArestas = Vertice.LArestas;
+      return(*this);
+   }
 }
 
 #endif // VERTICE_H_INCLUDED
