@@ -10,14 +10,26 @@
 
 using namespace std;
 
-int main(){
 
-   TGrafo* G;
+void instanciaGrafo(){
+    system("cls");
+    string file;
+    cout << "Digite o nome do arquivo:" << endl;
+    cin >> file;
 
-   G = new TGrafo();
-   G->settipo(true);
-   string line;
-  ifstream myfile ("grafo01.txt");
+
+    TGrafo* G;
+    int inicio;
+    int fim;
+    G = new TGrafo();
+    G->settipo(true);
+    string line;
+    string id;
+    double impPos, impNeg, demand, Xini, Yini, Xfim, Yfim;
+    bool bidir;
+    int suapi;
+
+    ifstream myfile (file);
 
   if (myfile.is_open()){
         getline (myfile,line);
@@ -30,7 +42,6 @@ int main(){
                     getline (myfile,line);
                     vector<string> tokens;
                     string token;
-
                     istringstream tokenizer { line };
 
                     while (getline(tokenizer, token, ' ')){
@@ -38,49 +49,107 @@ int main(){
                             tokens.push_back(token);
                         }
                     }
-
                     if(i == 0){
-                            int id = stoi(tokens[0]);
-                            double impPos = stod(tokens[1]);
-                            double impNeg = stod(tokens[2]);
-                            double demand = stod(tokens[3]);
-
-                            cout << "id: " << id<< endl;
-                            cout << "Impedancia_Positiva: " <<impPos << endl;
-                            cout <<"Impedancia_negativa: " << impNeg << endl;
-                            cout <<"Demanda: " << demand << endl;
+                            id = tokens[0];
+                            impPos = stod(tokens[1]);
+                            impNeg = stod(tokens[2]);
+                            demand = stod(tokens[3]);
                     }else if(i==1){
-                            double Xini = stod(tokens[0]);
-                            double Yini = stod(tokens[1]);
-
-                            G->AddVertice(Xini, Yini);
-
-                            cout << "X_inicial: " << Xini << endl;
-                            cout << "Y_Inicial: " << Yini << endl;
+                            Xini = stod(tokens[0]);
+                            Yini = stod(tokens[1]);
                     }else if(i==2){
-                            double Xfim = stod(tokens[0]);
-                            double Yfim = stod(tokens[1]);
-                            G->AddVertice(Xfim, Yfim);
-
-                            cout << "X_final: " << Xfim << endl;
-                            cout << "Y_final: " << Yfim << endl;
+                            Xfim = stod(tokens[0]);
+                            Yfim = stod(tokens[1]);
                     }
 
                 }
 
+                //cout << "Adicionando vertice A: " << G->AddVertice(Xini, Yini) << endl;
+                inicio = G->testInsert(Xini, Yini);
+                fim = G->testInsert(Xfim, Yfim);
 
+                cout << "Vertices: "<< endl;
+                cout << "inicio " << inicio << endl;
+                cout << "fim " << fim << endl << endl;
 
+                if(impPos != -1 && impNeg != -1){
+                    G->AddAresta(inicio, fim, id, impPos, true);
+                }else if (impPos != -1){
+                    G->AddAresta(inicio, fim, id, impPos, false);
+                }else if(impNeg != -1){
+                    G->AddAresta(fim, inicio, id, impNeg, false);
+                }
+                cout << "+++++++++++++++++++++++: "<< endl;
 
-
-
-//            for (const string& token: tokens){
-//                cout << "*"<<token <<"*"<<endl;
-//            }
+//                cout << "X_inicial: " << Xini << endl;
+//                cout << "Y_Inicial: " << Yini << endl;
+//                cout << "X_final: " << Xfim << endl;
+//                cout << "Y_final: " << Yfim << endl;
+//                cout << "id: " << id<< endl;
+//                cout << "Impedancia_Positiva: " <<impPos << endl;
+//                cout <<"Impedancia_negativa: " << impNeg << endl;
+//                cout <<"Demanda: " << demand << endl;
         }
+
+//                cout << "Alterando o grafo..." << endl;
+//                cout << "Removendo o vertice 2" << endl;
+//                G->RemVertice(2);
+//                cout << "Removendo a aresta A<->B" << endl;
+//                G->RemAresta(0, 1, true);
+                G->Print();
+
     myfile.close();
+    system("pause");
+  }
+  else{
+    system("pause");
+    cout << "Arquivo nao existe!" << endl;
   }
 
-  else cout << "Unable to open file";
+}
+void about(){
+    system("cls");
+    cout << endl <<"NOME DO SOFTWARE" << endl << "Allan Cristian da Cunha, Eduardo L. R. Schaurich, Murillo Machado" << endl;
+    cout << "Funcionalidades: Ler grafos de arquivos texto." << endl << "Realizar buscas de amplitude e profundidade em grafos"<< endl;
+    cout << "Descobrir o caminho minimo de grafos" << endl;
+    cout << "OBJETIVOS" << endl<< endl<< endl;
+    system("pause");
+
+}
+
+void menu(){
+    int AuxMenu=7;
+    while(AuxMenu != 6){
+    system("cls");
+    cout << "1 - Ler grafo do arquivo texto" << endl;
+    cout << "2 - Busca em Amplitude" << endl;
+    cout << "3 - Busca em Profundidade" << endl;
+    cout << "4 - Caminho Minimo" << endl;
+    cout << "5 - About" << endl;
+    cout << "6 - Sair" << endl;
+    cin >> AuxMenu;
+        switch (AuxMenu){
+            case 1: instanciaGrafo();
+                break;
+            case 2: cout << "Busca em Amplitude" << endl;
+                break;
+            case 3: cout << "Busca em Profundidade" << endl;
+                break;
+            case 4: cout << "Caminho Minimo" << endl;
+                break;
+            case 5: about();
+                break;
+            default:
+                cout << "Valor invalido, digite novamente!" << endl;
+
+                }
+    }
+}
+
+int main(){
+
+    menu();
+
 
 //   TGrafo* G;
 //

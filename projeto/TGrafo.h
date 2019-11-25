@@ -30,6 +30,7 @@ public:
    void RemVertice(int _id);
    bool AddAresta(int _origem, int _destino, string _name, double _peso, bool _bidir);
    void RemAresta(int _origem, int _destino, bool _bidir);
+   int testInsert(double _x, double _y);
    void Print();
    ~TGrafo();
 };
@@ -40,7 +41,7 @@ public:
 TGrafo::TGrafo(){
    tipo = false;
    ordem = 0;
-   autoid = 0;
+   autoid = 1;
    dimensao = 0;
    LVertices = new TLista<Vertice>();
 }
@@ -49,7 +50,7 @@ TGrafo::TGrafo(int _ordem, int _dimensao, bool _tipo = false){
    ordem = _ordem;
    dimensao = _dimensao;
    tipo = _tipo;
-   autoid = 0;
+   autoid = 1;
    LVertices = new TLista<Vertice>();
 }
 
@@ -98,6 +99,23 @@ Vertice TGrafo::getVertice(int _id){
         }
     }
 }
+
+int TGrafo::testInsert(double _x, double _y){
+   TNo<Vertice> *p = LVertices->getprim();
+   int n = LVertices->getTamanho();
+   int i = 0;
+
+    while( i < n ){
+        if((abs(p->getinfo().getX() - _x)< 0.1) && (abs(p->getinfo().getY() - _y))< 0.1){
+            return p->getinfo().getid();
+        }else {
+                p = p->getprox();
+                i++;
+        }
+    }
+    return AddVertice(_x, _y);
+}
+
 
 void TGrafo::RemVertice(int _id){
    int i, j;
