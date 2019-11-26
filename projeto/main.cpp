@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "TGrafo.h"
 #include <fstream>
 #include <string>
@@ -11,18 +12,16 @@
 using namespace std;
 
 
-void instanciaGrafo(){
+void instanciaGrafo(TGrafo *G){
     system("cls");
     string file;
     cout << "Digite o nome do arquivo:" << endl;
     cin >> file;
 
 
-    TGrafo* G;
     int inicio;
     int fim;
-    G = new TGrafo();
-    G->settipo(true);
+
     string line;
     string id;
     double impPos, impNeg, demand, Xini, Yini, Xfim, Yfim;
@@ -68,9 +67,9 @@ void instanciaGrafo(){
                 inicio = G->testInsert(Xini, Yini);
                 fim = G->testInsert(Xfim, Yfim);
 
-                cout << "Vertices: "<< endl;
-                cout << "inicio " << inicio << endl;
-                cout << "fim " << fim << endl << endl;
+//                cout << "Vertices: "<< endl;
+//                cout << "inicio " << inicio << endl;
+//                cout << "fim " << fim << endl << endl;
 
                 if(impPos != -1 && impNeg != -1){
                     G->AddAresta(inicio, fim, id, impPos, true);
@@ -79,7 +78,7 @@ void instanciaGrafo(){
                 }else if(impNeg != -1){
                     G->AddAresta(fim, inicio, id, impNeg, false);
                 }
-                cout << "+++++++++++++++++++++++: "<< endl;
+                //cout << "+++++++++++++++++++++++: "<< endl;
 
 //                cout << "X_inicial: " << Xini << endl;
 //                cout << "Y_Inicial: " << Yini << endl;
@@ -117,7 +116,167 @@ void about(){
 
 }
 
-void menu(){
+void bfs (TGrafo *G){
+
+    system("cls");
+
+    double x, y;
+    int id;
+    int tam = G->getLVertices()->getTamanho();
+    bool visitados[tam];
+
+        for(int j = 0 ; j < tam; j++){
+           visitados[j] = false;
+        }
+
+    Vertice atual;
+    TNo<Aresta> *adj = new TNo<Aresta>();
+    TLista<int> *fila = new TLista<int>();
+
+
+    string coords;
+    vector<string> tokens;
+    string token;
+
+    cout << "digite as coordenadas x e y: " << endl;
+    getchar();
+    getline(cin,coords);
+
+    istringstream tokenizer { coords };
+    while (getline(tokenizer, token, ' ')){
+        tokens.push_back(token);
+    }
+
+    x = stod(tokens[0]);
+    y = stod(tokens[1]);
+
+    id = G->test(x,y);
+
+    if(id >= 0){
+        atual = G->getVertice(id);
+        adj = atual.getLArestas()->getprim();
+        fila->ins_fim(id);
+
+        while(fila->getTamanho() > 0){
+           while(adj != nullptr){
+                if(visitados[adj->getinfo().getid_dest()]== false){
+                    //cout << "Fila" <<adj->getinfo().getid_dest() << endl;
+                     fila->ins_fim(adj->getinfo().getid_dest());
+                }
+
+                //cout<< "adj" << adj->getinfo().getid_dest()<<endl;
+                adj = adj->getprox();
+           }
+//            cout << "[ ";
+//            for (int j = 0; j < tam; j++){
+//                cout << visitados[j] << " , ";
+//            }
+//            cout << " ]";
+
+            fila->rem_ini();
+            visitados[id] = true;
+            cout << "id : " << id << endl;
+
+            if(fila->getprim()!=nullptr){
+                id = fila->getprim()->getinfo();
+                atual = G->getVertice(id);
+                adj = atual.getLArestas()->getprim();
+            }
+        }
+    }else{
+        cout << "Vertice nao existe" << endl;
+    }
+
+    cout << "finalizou" << endl;
+    system("pause");
+
+}
+
+void dfs(TGrafo *G){
+system("cls");
+
+    double x, y;
+    int id;
+    int tam = G->getLVertices()->getTamanho();
+    bool visitados[tam];
+
+        for(int j = 0 ; j < tam; j++){
+           visitados[j] = false;
+        }
+
+    Vertice atual;
+    TNo<Aresta> *adj = new TNo<Aresta>();
+    TLista<int> *pilha = new TLista<int>();
+
+
+    string coords;
+    vector<string> tokens;
+    string token;
+
+    cout << "digite as coordenadas x e y: " << endl;
+    getchar();
+    getline(cin,coords);
+
+    istringstream tokenizer { coords };
+    while (getline(tokenizer, token, ' ')){
+        tokens.push_back(token);
+    }
+
+    x = stod(tokens[0]);
+    y = stod(tokens[1]);
+
+    id = G->test(x,y);
+
+    if(id >= 0){
+        atual = G->getVertice(id);
+        adj = atual.getLArestas()->getprim();
+        pilha->ins_fim(id);
+
+        while(pilha->getTamanho() > 0){
+           while(adj != nullptr){
+                if(visitados[adj->getinfo().getid_dest()]== false){
+                    //cout << "Fila" <<adj->getinfo().getid_dest() << endl;
+                     pilha->ins_fim(adj->getinfo().getid_dest());
+                }
+
+                //cout<< "adj" << adj->getinfo().getid_dest()<<endl;
+                adj = adj->getprox();
+           }
+//            cout << "[ ";
+//            for (int j = 0; j < tam; j++){
+//                cout << visitados[j] << " , ";
+//            }
+//            cout << " ]";
+
+            pilha->rem_fim();
+            visitados[id] = true;
+            cout << "id : " << id << endl;
+
+            if(pilha->getult()!=nullptr){
+                id = pilha->getult()->getinfo();
+                atual = G->getVertice(id);
+                adj = atual.getLArestas()->getprim();
+            }
+        }
+    }else{
+        cout << "Vertice nao existe" << endl;
+    }
+
+    cout << "finalizou" << endl;
+    system("pause");
+
+}
+
+
+//188859.709932 8253809.082146
+
+
+int main(){
+
+    TGrafo* G;
+    G = new TGrafo();
+    G->settipo(true);
+
     int AuxMenu=7;
     while(AuxMenu != 6){
     system("cls");
@@ -129,9 +288,9 @@ void menu(){
     cout << "6 - Sair" << endl;
     cin >> AuxMenu;
         switch (AuxMenu){
-            case 1: instanciaGrafo();
+            case 1: instanciaGrafo(G);
                 break;
-            case 2: cout << "Busca em Amplitude" << endl;
+            case 2: bfs(G);
                 break;
             case 3: cout << "Busca em Profundidade" << endl;
                 break;
@@ -144,11 +303,6 @@ void menu(){
 
                 }
     }
-}
-
-int main(){
-
-    menu();
 
 
 //   TGrafo* G;
